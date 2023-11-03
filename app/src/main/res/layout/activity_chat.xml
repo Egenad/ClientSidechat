@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChatActivity">
+
+    <TextView
+        android:id="@+id/textOutput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usuarios: Angel, Miguel"
+        android:textColor="@color/white"
+        android:paddingLeft="5dp"
+        android:background="#454F81"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp" />
+    <androidx.fragment.app.FragmentContainerView
+        android:name="es.ua.eps.clientsidechat.fragment.MessageListFragment"
+        android:id="@+id/list_fragment"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:background="#191D37"
+        android:layout_height="0dip" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:background="#454F81"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:baselineAligned="true">
+        <EditText android:layout_weight="4"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/textInput"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColorHint="#ADB9FA"
+            android:hint="@string/message"
+            android:textColor="@color/white"
+            android:layout_height="match_parent"
+            android:layout_width="0dip">
+        </EditText>
+        <androidx.appcompat.widget.AppCompatButton
+            android:text="@string/send"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:id="@+id/btnSend"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_ip">Server IP address</string>
+    <string name="port">Port</string>
+    <string name="connect">Connect</string>
+    <string name="empty_fields">Please, fill both fields</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+</resources>
