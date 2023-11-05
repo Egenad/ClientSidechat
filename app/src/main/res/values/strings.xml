@@ -3,9 +3,13 @@
     <string name="server_ip">Dirección IP del servidor</string>
     <string name="port">Puerto</string>
     <string name="connect">Conectar</string>
-    <string name="empty_fields">Por favor, rellena ambos campos</string>
+    <string name="empty_fields">Por favor, rellena todos los campos</string>
+    <string name="invalid_ip">Por favor, utiliza una IP válida</string>
+    <string name="invalid_port">Por favor, utiliza un puerto válido</string>
     <string name="message">Mensaje</string>
+    <string name="sendMsgDsc">Enviar mensaje</string>
     <string name="send">Enviar</string>
+    <string name="username">Nombre de usuario</string>
     <string name="nullValue" translatable="false">Null</string>
 
 </resources>

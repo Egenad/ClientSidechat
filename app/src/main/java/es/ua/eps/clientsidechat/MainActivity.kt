@@ -1,10 +1,13 @@
 package es.ua.eps.clientsidechat
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import es.ua.eps.clientsidechat.databinding.ActivityMainBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +17,7 @@ import java.io.ByteArrayOutputStream
 import java.net.Socket
 
 const val PACKAGE_NAME = "es.ua.eps.client"
+const val PERMISSION_CODE = 101
 
 @DelicateCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -26,19 +30,74 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkPermissions()
+    }
+
+    private fun checkPermissions(){
+
+        val permsArray = arrayOf(
+            android.Manifest.permission.INTERNET
+        )
+
+        if(hasPermissions(permsArray))
+            startClient()
+        else
+            askPermissions(permsArray)
+    }
+
+    private fun hasPermissions(perms : Array<String>) : Boolean{
+        return perms.all {
+            return ContextCompat.checkSelfPermission(
+                this,
+                it
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun askPermissions(perms : Array<String>){
+        ActivityCompat.requestPermissions(
+            this,
+            perms,
+            PERMISSION_CODE)
+    }
+
+    private fun startClient(){
         binding.connectButton.setOnClickListener{
-            if(binding.port.text.isNotBlank() && binding.serverIp.text.isNotBlank()){
+            // Verificamos que los campos estén rellenados y que la dirección IP y el puerto sean válidos
 
-                /*try {
-                    val portNumber = Integer.parseInt(binding.port.text.toString())
-                    val clientSideTask = ClientSideTask(binding.serverIp.text.toString(), portNumber)
-                    clientSideTask.runCoroutine()
+            val serverAddress = binding.serverIp.text.toString()
 
-                }catch (error : NumberFormatException){
-                    Log.e(PACKAGE_NAME, error.stackTraceToString())
-                }*/
-                startActivity(Intent(this, ChatActivity::class.java))
+            if(binding.port.text.isNotBlank() && serverAddress.isNotBlank() && binding.username.text.isNotBlank()){
+                if(serverAddress.matches(Regex("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\$"))){
+                    if(binding.port.text.matches(Regex("\\d{2,5}"))) {
+                        val clientName = binding.username.text.toString()
+                        startActivity(
+                            Intent(this, ChatActivity::class.java)
+                                .putExtra(CLIENT_NAME, clientName)
+                                .putExtra(SERVER_ADDRESS, serverAddress)
+                                .putExtra(
+                                    PORT_NUMBER,
+                                    Integer.parseInt(binding.port.text.toString())
+                                )
+                        )
+                    }else Toast.makeText(this, resources.getString(R.string.invalid_ip), Toast.LENGTH_SHORT).show()
+                }else Toast.makeText(this, resources.getString(R.string.invalid_ip), Toast.LENGTH_SHORT).show()
             }else Toast.makeText(this, resources.getString(R.string.empty_fields), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == PERMISSION_CODE){
+            val allPerms = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+
+            if(grantResults.isNotEmpty() && allPerms)
+                startClient()
         }
     }
 
@@ -52,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
                 try{
 
-                    val socket = Socket(serverAddress, serverPort)
+                    val socket = Socket("10.0.2.2", serverPort)
 
                     val byteArrayOutputStream = ByteArrayOutputStream(1024)
                     val buffer = ByteArray(1024)

@@ -11,12 +11,13 @@
         android:id="@+id/textOutput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usuarios: Angel, Miguel"
+        android:text="Usuarios:"
         android:textColor="@color/white"
-        android:paddingLeft="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:background="#454F81"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp" />
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp" />
     <androidx.fragment.app.FragmentContainerView
         android:name="es.ua.eps.clientsidechat.fragment.MessageListFragment"
         android:id="@+id/list_fragment"
@@ -47,12 +48,13 @@
             android:layout_height="match_parent"
             android:layout_width="0dip">
         </EditText>
-        <androidx.appcompat.widget.AppCompatButton
-            android:text="@string/send"
+        <ImageButton
+            android:background="@drawable/sendmsgicon"
             android:layout_weight="1"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:id="@+id/btnSend"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSend"
+            android:contentDescription="@string/sendMsgDsc" />
 
     </LinearLayout>
 

@@ -3,7 +3,11 @@
     <string name="server_ip">Server IP address</string>
     <string name="port">Port</string>
     <string name="connect">Connect</string>
-    <string name="empty_fields">Please, fill both fields</string>
+    <string name="invalid_ip">Please, put a valid IP address</string>
+    <string name="invalid_port">Please, use a valid port number</string>
+    <string name="empty_fields">Please, fill every field</string>
+    <string name="sendMsgDsc">Send message</string>
     <string name="message">Message</string>
+    <string name="username">Username</string>
     <string name="send">Send</string>
 </resources>

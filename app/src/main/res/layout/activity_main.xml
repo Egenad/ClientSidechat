@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#272E53"
     tools:context=".MainActivity">
 
     <EditText
@@ -12,23 +13,41 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9FF4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:hint="@string/server_ip"
-        android:text="127.0.0.1"
+        android:text="10.0.2.2"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/port"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="#8F9FF4"
         android:importantForAutofill="no"
         android:hint="@string/port"
-        android:text="8080"
+        android:text="50000"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8F9FF4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:hint="@string/username"
+        android:text=""
         android:inputType="text" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -36,7 +55,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="#FFC107"
+        android:backgroundTint="#8F9FF4"
         android:textColor="@color/black"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
