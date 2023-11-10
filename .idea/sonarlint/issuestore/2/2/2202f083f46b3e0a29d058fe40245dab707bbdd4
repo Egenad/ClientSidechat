@@ -1,0 +1,8 @@
+
+lkotlin:S117,"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ª…Ç€8Ô¬ãĞ»1
+qkotlin:S1173"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Ã¤Éôùÿÿÿÿ8¡íçĞ»1
+ykotlin:S1192"UDefine a constant instead of duplicating this literal "AES/ECB/PKCS7PADDING" 4 times.(ø‚­ıÿÿÿÿ8œŠæĞ»1
+6kotlin:S5542"Use a secure cipher mode.(ø‚­ıÿÿÿÿ
+=kotlin:S5542$"Use a secure cipher mode.(ø‚­ıÿÿÿÿ8«íçĞ»1
+6kotlin:S5542-"Use a secure cipher mode.(Ì¹¶ÿÿÿÿÿ
+=kotlin:S55424"Use a secure cipher mode.(Ì¹¶ÿÿÿÿÿ8ŠæĞ»1

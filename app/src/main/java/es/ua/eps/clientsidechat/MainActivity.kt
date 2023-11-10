@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                                     Integer.parseInt(binding.port.text.toString())
                                 )
                         )
-                    }else Toast.makeText(this, resources.getString(R.string.invalid_ip), Toast.LENGTH_SHORT).show()
+                    }else Toast.makeText(this, resources.getString(R.string.invalid_port), Toast.LENGTH_SHORT).show()
                 }else Toast.makeText(this, resources.getString(R.string.invalid_ip), Toast.LENGTH_SHORT).show()
             }else Toast.makeText(this, resources.getString(R.string.empty_fields), Toast.LENGTH_SHORT).show()
         }

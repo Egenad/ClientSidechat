@@ -12,6 +12,7 @@
     <string name="imgDsc">Imagen</string>
     <string name="send">Enviar</string>
     <string name="username">Nombre de usuario</string>
+    <string name="users">Usuarios:</string>
     <string name="nullValue" translatable="false">Null</string>
 
 </resources>

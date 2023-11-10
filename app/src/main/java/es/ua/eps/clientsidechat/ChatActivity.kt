@@ -1,6 +1,5 @@
 package es.ua.eps.clientsidechat
 
-import android.R.attr.data
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -203,20 +202,34 @@ class ChatActivity : AppCompatActivity() {
                     if(inputStream.available() > 0){                                                // Si el flujo de datos de entrada no está vacío, lo leemos.
                         val receivedMsg = inputStream.readUTF()                                     // Leemos los datos de entrada.
                         val decryptedMsg = aesHelper.decrypt(receivedMsg, aesKey!!)                 // Desencriptamos el mensaje utilizando la clave AES.
-                        val parsedMsg = Gson().fromJson(decryptedMsg, Message::class.java)          // Los transformamos de JSON a un objeto Message de forma automática.
-                        parsedMsg.type = IN_MESSAGE                                                 // Indicamos que el mensaje es de entrada.
 
-                        if(parsedMsg.hasImage){
-                            val len = inputStream.readInt()
-                            val data = ByteArray(len)
-                            inputStream.readFully(data, 0, data.size)
-                            parsedMsg.image = parseImageByteArray(data)                             // Obtenemos el Drawable a mostrar a partir del bitmap
+                        if(decryptedMsg.startsWith("UserList:")){                             // Comprobamos si es un mensanje informativo de conexión.
+                            updateUserListMainThread(decryptedMsg)
+                        }else {
+                            val parsedMsg = Gson().fromJson(                                        // Los transformamos de JSON a un objeto Message de forma automática.
+                                decryptedMsg,
+                                Message::class.java
+                            )
+                            parsedMsg.type =
+                                IN_MESSAGE                                                          // Indicamos que el mensaje es de entrada.
+
+                            if (parsedMsg.hasImage) {
+                                val len = inputStream.readInt()
+                                val data = ByteArray(len)
+                                inputStream.readFully(data, 0, data.size)
+                                parsedMsg.image = parseImageByteArray(                              // Obtenemos el Drawable a mostrar a partir del bitmap
+                                    aesHelper.decrypt(
+                                        data,
+                                        aesKey!!
+                                    )
+                                )
+                            }
+
+                            Log.i(PACKAGE_NAME, "Message received: $decryptedMsg")
+
+                            startAudio(R.raw.pop_up)
+                            addMessageMainThread(parsedMsg)                                         // Añadimos el mensaje recibido a la pantalla.
                         }
-
-                        Log.i(PACKAGE_NAME, "Message received: $decryptedMsg")
-
-                        startAudio(R.raw.pop_up)
-                        addMessageMainThread(parsedMsg)                                             // Añadimos el mensaje recibido a la pantalla.
                     }
 
                     if(msgToSend.isNotBlank() || bitmapToSend != null){                             // Comprobamos si el cliente ha generado un mensaje que se deba enviar al servidor.
@@ -231,7 +244,7 @@ class ChatActivity : AppCompatActivity() {
                         if(msg.hasImage) {
                             val stream = ByteArrayOutputStream()
                             bitmapToSend!!.compress(Bitmap.CompressFormat.PNG, 0, stream)    // Comprimimos la imagen para enviar sus bytes por socket.
-                            val array = stream.toByteArray()
+                            val array = aesHelper.encrypt(stream.toByteArray(), aesKey!!)
                             outputStream.writeInt(array.size)
                             outputStream.write(array,0,array.size)                              // Lo escribimos por el flujo de salida de datos.
                             outputStream.flush()
@@ -309,6 +322,17 @@ class ChatActivity : AppCompatActivity() {
         }
         binding.textInput.post{
             binding.textInput.setText("")
+        }
+    }
+
+    private fun updateUserListMainThread(userList : String){
+
+        val replaced = userList.replace(Regex("UserList:"), "")
+
+        binding.textOutput.post {
+            val users = resources.getString(R.string.users)
+            val newText = "$users$replaced"
+            binding.textOutput.text = newText
         }
     }
 

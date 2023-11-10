@@ -10,6 +10,7 @@
     <string name="sendMediaDsc">Send image</string>
     <string name="imgDsc">Image</string>
     <string name="message">Message</string>
+    <string name="users">Users:</string>
     <string name="username">Username</string>
     <string name="send">Send</string>
 </resources>
