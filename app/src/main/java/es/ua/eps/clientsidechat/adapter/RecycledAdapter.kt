@@ -5,8 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import es.ua.eps.clientsidechat.PACKAGE_NAME
 import es.ua.eps.clientsidechat.R
@@ -14,6 +15,7 @@ import es.ua.eps.clientsidechat.utils.Message
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 
 const val OUT_MESSAGE = 0
 const val IN_MESSAGE = 1
@@ -85,11 +87,14 @@ class RecycledAdapter(val messageList: List<Message>) :
         private var author: TextView?
         private var content: TextView
         private var time: TextView
+        private val image: ImageView?
+        private val constraint: ConstraintLayout?
         private val view = v
 
         fun bind(it: Message) {
             author?.text = it.authorName
             content.text = it.content
+            if(content.text.isBlank()) content.visibility = View.GONE
 
             var dateString = ""
 
@@ -98,6 +103,13 @@ class RecycledAdapter(val messageList: List<Message>) :
                 dateString = format.format(it.date ?: Date())
             }catch (error : Exception){
                 Log.e(PACKAGE_NAME, error.stackTraceToString())
+            }
+
+            if(it.image != null) {
+                image?.setImageDrawable(it.image)
+                constraint?.visibility = View.VISIBLE
+            }else{
+                constraint?.visibility = View.GONE
             }
 
             time.text = dateString
@@ -110,6 +122,8 @@ class RecycledAdapter(val messageList: List<Message>) :
             author = view.findViewById(R.id.author)
             content = view.findViewById(R.id.content)
             time = view.findViewById(R.id.time)
+            image = view.findViewById(R.id.imageView)
+            constraint = view.findViewById(R.id.constraint)
         }
     }
 

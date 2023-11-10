@@ -39,6 +39,7 @@ class MessageListFragment : Fragment() {
 
     fun notifyItemInserted(){
         binding.list.adapter?.notifyItemInserted(MessageChatData.messages.size - 1)
+        binding.list.smoothScrollToPosition(MessageChatData.messages.size - 1)
     }
 
     fun notifyItemModified(position: Int){

@@ -7,6 +7,8 @@
     <string name="invalid_port">Please, use a valid port number</string>
     <string name="empty_fields">Please, fill every field</string>
     <string name="sendMsgDsc">Send message</string>
+    <string name="sendMediaDsc">Send image</string>
+    <string name="imgDsc">Image</string>
     <string name="message">Message</string>
     <string name="username">Username</string>
     <string name="send">Send</string>
